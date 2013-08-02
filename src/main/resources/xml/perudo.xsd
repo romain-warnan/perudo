@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="fr.plaisance" xmlns="http://www.labrouste.serveftp.com/game" elementFormDefault="qualified" xmlns:perudo="fr.plaisance"> 
+    <xs:element name="game" type="perudo:gameType"></xs:element>
+    <xs:element name="messages" type="perudo:messagesType"></xs:element>
+    <xs:element name="message" type="perudo:messageType"></xs:element>
+    <xs:element name="players" type="perudo:playersType"></xs:element>
+    <xs:element name="player" type="perudo:playerType"></xs:element>
+    <xs:element name="declaration" type="perudo:declarationType"></xs:element>
+    <xs:element name="faces" type="perudo:facesType"></xs:element>
+    <xs:element name="face" type="xs:integer"></xs:element>
+    <xs:element name="playerName" type="xs:string"></xs:element>
+    <xs:element name="gameId" type="xs:integer"></xs:element>
+    <xs:element name="playerId" type="xs:integer"></xs:element>
+    <xs:element name="playerRank" type="xs:integer"></xs:element>
+    <xs:element name="number" type="xs:integer"></xs:element>
+
+    <xs:complexType name="gameType">
+    	<xs:sequence>
+    		<xs:element ref="perudo:players" maxOccurs="1" minOccurs="1"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="palifico" type="xs:boolean"></xs:attribute>
+    	<xs:attribute name="ready" type="xs:boolean"></xs:attribute>
+    	<xs:attribute name="started" type="xs:boolean"></xs:attribute>
+    	<xs:attribute name="over" type="xs:boolean"></xs:attribute>
+    	<xs:attribute name="paused" type="xs:boolean"></xs:attribute>
+    </xs:complexType>          
+    <xs:complexType name="playersType">
+    	<xs:sequence>
+    		<xs:element ref="perudo:player" maxOccurs="6" minOccurs="0"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="messagesType">
+    	<xs:sequence>
+    		<xs:element ref="perudo:message" maxOccurs="unbounded" minOccurs="0"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="messageType">
+    	<xs:attribute name="type">
+    		<xs:simpleType>
+    			<xs:restriction base="xs:string">
+    				<xs:pattern value="info|error"></xs:pattern>
+    			</xs:restriction>
+    		</xs:simpleType>
+    	</xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="playerType">
+    	<xs:sequence>
+    		<xs:element ref="perudo:playerId" maxOccurs="1" minOccurs="1"></xs:element>
+    		<xs:element ref="perudo:playerName" maxOccurs="1" minOccurs="1"></xs:element>
+    		<xs:element ref="perudo:playerRank" maxOccurs="1" minOccurs="1"></xs:element>
+    		<xs:element ref="perudo:declaration" maxOccurs="1" minOccurs="0"></xs:element>
+    		<xs:element ref="perudo:faces" maxOccurs="1" minOccurs="0"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="action">
+    		<xs:simpleType>
+    			<xs:restriction base="xs:string">
+    				<xs:pattern value="bet|dudo|calza"></xs:pattern>
+    			</xs:restriction>
+    		</xs:simpleType>
+    	</xs:attribute>
+    	<xs:attribute name="active" type="xs:boolean"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="declarationType">
+    	<xs:sequence>
+    		<xs:element ref="perudo:number" maxOccurs="1" minOccurs="1"></xs:element>
+    		<xs:element ref="perudo:value" maxOccurs="1" minOccurs="1"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="facesType">
+    	<xs:sequence>
+    		<xs:element ref="perudo:face" maxOccurs="5" minOccurs="0"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+    <xs:element name="value">
+    	<xs:simpleType>
+    		<xs:restriction base="xs:integer">
+    			<xs:minInclusive value="1"></xs:minInclusive>
+    			<xs:maxInclusive value="6"></xs:maxInclusive>
+    		</xs:restriction>
+    	</xs:simpleType>
+    </xs:element>
+</xs:schema> 
