@@ -20,8 +20,8 @@ import org.xml.sax.SAXException;
 import fr.plaisance.domaine.Declaration;
 import fr.plaisance.domaine.Game;
 import fr.plaisance.domaine.PerudoMessageType;
-import fr.plaisance.domaine.Player;
 import fr.plaisance.domaine.PerudoResult;
+import fr.plaisance.domaine.Player;
 import fr.plaisance.exception.PerudoException;
 
 @Path("/game")

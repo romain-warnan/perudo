@@ -10,14 +10,14 @@ import org.apache.commons.collections.CollectionUtils;
 
 import fr.plaisance.PerudoService;
 import fr.plaisance.PerudoUtil;
-import fr.plaisance.domaine.PerudoAction;
 import fr.plaisance.domaine.Declaration;
 import fr.plaisance.domaine.Face;
 import fr.plaisance.domaine.Game;
 import fr.plaisance.domaine.Perudo;
+import fr.plaisance.domaine.PerudoAction;
 import fr.plaisance.domaine.PerudoColor;
-import fr.plaisance.domaine.Player;
 import fr.plaisance.domaine.PerudoResultType;
+import fr.plaisance.domaine.Player;
 import fr.plaisance.exception.ExpiredIdentifierException;
 import fr.plaisance.exception.GameNotStartedException;
 import fr.plaisance.exception.InvalidDeclarationException;
