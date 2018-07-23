@@ -9,7 +9,6 @@
 	<packaging>jar</packaging>
 
 	<name>perudo-server</name>
-	<description>Demo project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -56,6 +55,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
