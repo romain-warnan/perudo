@@ -1,6 +1,6 @@
 package fr.plaisance.perudo.exception;
 
-import fr.plaisance.PerudoUtil;
+import fr.plaisance.perudo.PerudoUtil;
 
 @SuppressWarnings("serial")
 public class WrongPlayerException extends PerudoException {
