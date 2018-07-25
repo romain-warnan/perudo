@@ -16,6 +16,7 @@ public class Game {
 	
 	public Game(Long gameId){
 		this.gameId = gameId;
+        players = new ArrayList<Player>();
 	}
 
 	public Long getGameId() {
