@@ -80,13 +80,13 @@ public class DeclarationService {
 						// Valeur strictement supérieure
 						else if(current.getFace().getValue() > previous.getFace().getValue()){
 							if(this.strict){
-								return current.getNumber() == previous.getNumber();
+								return current.getNumber().equals(previous.getNumber());
 							}
 							return current.getNumber() >= previous.getNumber();
 						}
 						// Valeurs égales
 						else if(current.getFace() == previous.getFace()){
-							return current.getNumber() > previous.getNumber();
+							return current.getNumber().intValue() > previous.getNumber().intValue();
 						}
 						// Problème
 						else{
@@ -105,7 +105,7 @@ public class DeclarationService {
 
 	public Declaration createDeclaration(Integer value, Integer number) throws IllegalFaceValueException {
 		for (Face face : Face.values()) {
-			if(face.getValue() == value){
+			if(face.getValue().equals(value)){
 				return createDeclaration(face, number);
 			}
 		}
