@@ -8,10 +8,10 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FaceConverter implements Converter<Integer, Face> {
+public class FaceConverter implements Converter<String, Face> {
 
     @Override
-    public Face convert(Integer integer) {
-        return Face.of(integer);
+    public Face convert(String string) {
+        return Face.of(Integer.valueOf(string));
     }
 }

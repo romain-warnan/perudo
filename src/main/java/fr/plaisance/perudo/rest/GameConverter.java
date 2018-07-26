@@ -8,13 +8,13 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GameConverter implements Converter<Long, Game> {
+public class GameConverter implements Converter<String, Game> {
 
     @Autowired
     private GameService gameService;
 
     @Override
-    public Game convert(Long gameId) {
-        return gameService.getById(gameId);
+    public Game convert(String gameId) {
+        return gameService.getById(Long.valueOf(gameId));
     }
 }

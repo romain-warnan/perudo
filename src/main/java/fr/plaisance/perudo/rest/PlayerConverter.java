@@ -7,13 +7,13 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PlayerConverter implements Converter<Long, Game> {
+public class PlayerConverter implements Converter<String, Game> {
 
     @Autowired
     private GameService gameService;
 
     @Override
-    public Game convert(Long gameId) {
-        return gameService.getById(gameId);
+    public Game convert(String playerId) {
+        return gameService.getById(Long.valueOf(playerId));
     }
 }
