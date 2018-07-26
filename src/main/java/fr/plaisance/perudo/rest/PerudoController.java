@@ -36,7 +36,7 @@ public class PerudoController {
     @GetMapping(value = "/player", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Game addPlayer(@RequestParam("name") String playerName) {
 		Game game = gameService.lastGame();
-        Player player = playerService.createPlayer(playerName, game);
+        playerService.createPlayer(playerName, game);
         game.addMessage(PerudoMessageType.INFO, "Le joueur " + playerName + " a été ajouté à la partie.");
         return game;
 	}
