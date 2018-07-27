@@ -2,6 +2,7 @@ package fr.plaisance.perudo.domaine;
 
 import fr.plaisance.perudo.exception.IllegalFaceValueException;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public enum Face {
@@ -32,21 +33,10 @@ public enum Face {
 		this.value = number;
 	}
 
-	public static Face of(Integer integer) {
-	    switch (integer) {
-            case 1:
-                return Face.PACO;
-            case 2:
-                return Face.TWO;
-            case 3:
-                return Face.THREE;
-            case 4:
-                return Face.FOUR;
-            case 5:
-                return Face.FIVE;
-            case 6:
-                return Face.SIX;
-        }
-        throw new IllegalFaceValueException();
+	public static Face of(Integer value) {
+	    return Arrays.stream(Face.values())
+            .filter(f -> f.getValue().equals(value))
+            .findFirst()
+            .orElseThrow(IllegalFaceValueException::new);
     }
 }

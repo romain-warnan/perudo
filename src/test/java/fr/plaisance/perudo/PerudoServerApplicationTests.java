@@ -37,10 +37,13 @@ public class PerudoServerApplicationTests {
     @Autowired
     private DeclarationService declarationService;
 
+    @Autowired
+    private Perudo perudo;
+
     @Before
     public void setUp() {
-        if (CollectionUtils.isNotEmpty(Perudo.getInstance().getGames())) {
-            Perudo.getInstance().getGames().clear();
+        if (CollectionUtils.isNotEmpty(perudo.getGames())) {
+            perudo.getGames().clear();
         }
     }
 
@@ -48,7 +51,7 @@ public class PerudoServerApplicationTests {
     public void testPerudo() throws PerudoException {
 
         Game game1 = gameService.createGame();
-        assertEquals(1, Perudo.getInstance().getGames().size());
+        assertEquals(1, perudo.getGames().size());
         assertEquals(Long.valueOf(1L), game1.getGameId());
 
         playerService.createPlayer("Player 1", game1);
@@ -68,7 +71,7 @@ public class PerudoServerApplicationTests {
         }
 
         Game game2 = gameService.createGame();
-        assertEquals(2, Perudo.getInstance().getGames().size());
+        assertEquals(2, perudo.getGames().size());
         assertEquals(Long.valueOf(2L), game2.getGameId());
 
         Player player2 = playerService.createPlayer("Player 7", game2);
