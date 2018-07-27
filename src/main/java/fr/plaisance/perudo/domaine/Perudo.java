@@ -9,16 +9,13 @@ import java.util.List;
 @Component
 public class Perudo {
 
-	private List<Game> games;
+	private List<Game> games = new ArrayList<>();
 
 	public List<Game> getGames() {
 		return games;
 	}
 	
 	public void addGame(Game game){
-		if(CollectionUtils.isEmpty(games)){
-			games = new ArrayList<Game>();
-		}
 		games.add(game);
 	}
 }
