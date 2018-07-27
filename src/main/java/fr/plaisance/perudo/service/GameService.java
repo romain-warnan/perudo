@@ -139,20 +139,12 @@ public class GameService {
 	}
 
 	public Integer countFaces(Game game, Face value) {
-		int total = 0;
-		for (Player player : game.getPlayers()) {
-			if(!playerService.hasLost(player)){
-				for (Face face : player.getFaces()) {
-					if(game.isPalifico()){
-						total = (face == value ? total + 1 : total);
-					}
-					else{
-						total = (face == value || face == Face.PACO ? total + 1 : total);
-					}
-				}
-			}
-		}
-		return total;
+		return (int) game.getPlayers()
+            .stream()
+            .filter(player -> !playerService.hasLost(player))
+            .flatMap(player -> player.getFaces().stream())
+            .filter(face -> game.isPalifico() ? face == value || face == Face.PACO : face == value)
+            .count();
 	}
 
 	public void clearDeclarations(Game game) {
