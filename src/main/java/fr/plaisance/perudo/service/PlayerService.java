@@ -19,6 +19,9 @@ public class PlayerService {
     @Autowired
     private DeclarationService declarationService;
 
+    @Autowired
+    private Perudo perudo;
+
 	private static final Random random = new Random(System.currentTimeMillis());
 
 	public Player createPlayer(String playerName, Game game) throws TooManyPlayersException {
@@ -50,11 +53,7 @@ public class PlayerService {
 		player.getFaces().clear();
 		for(int n = 0 ; n < nbFaces ; n ++){
 			int number = PerudoUtil.random(1, 6);
-			for (Face face : Face.values()) {
-				if(number == face.getValue()){
-					player.getFaces().add(face);
-				}
-			}
+            player.getFaces().add(Face.of(number));
 		}
 	}
 	
@@ -95,39 +94,17 @@ public class PlayerService {
 	}
 
 	private boolean alreadyExists(Long id){
-		if(CollectionUtils.isEmpty(Perudo.getInstance().getGames())){
-			return false;
-		}
-		else{
-			for (Game game : Perudo.getInstance().getGames()) {
-				if(CollectionUtils.isNotEmpty(game.getPlayers())){
-					for (Player player : game.getPlayers()) {
-						if(player.getPlayerId().equals(id)){
-							return true;
-						}
-					}	
-				}
-			}
-		}
-		return false;
+		return perudo.getGames()
+            .stream()
+            .flatMap(game -> game.getPlayers().stream())
+            .anyMatch(player -> player.getPlayerId().equals(id));
 	}
 	
 	private boolean alreadyUsed(PerudoColor color){
-		if(CollectionUtils.isEmpty(Perudo.getInstance().getGames())){
-			return false;
-		}
-		else{
-			for (Game game : Perudo.getInstance().getGames()) {
-				if(CollectionUtils.isNotEmpty(game.getPlayers())){
-					for (Player player : game.getPlayers()) {
-						if(player.getColor() == color){
-							return true;
-						}
-					}	
-				}
-			}
-		}
-		return false;
+		return perudo.getGames()
+            .stream()
+		    .flatMap(game -> game.getPlayers().stream())
+            .anyMatch(player -> player.getColor() == color);
 	}
 	
 	public void bet(Player player, Game game, Declaration declaration) throws PerudoException {
@@ -236,22 +213,18 @@ public class PlayerService {
 	}
 
 	public Player getById(Long playerId) throws ExpiredIdentifierException {
-		for(Game game : Perudo.getInstance().getGames()){
-			for (Player player : game.getPlayers()) {
-				if(player.getPlayerId().equals(playerId)){
-					return player;
-				}
-			}
-		}
-		throw new ExpiredIdentifierException();
+		return perudo.getGames().stream()
+            .flatMap(game -> game.getPlayers().stream())
+            .filter(player -> player.getPlayerId().equals(playerId))
+            .findFirst()
+            .orElseThrow(ExpiredIdentifierException::new);
 	}
 
 	public boolean check(Player player, Game game) throws PerudoException {
-		for (Player item : game.getPlayers()) {
-			if(item.getPlayerId().equals(player.getPlayerId())){
-				return true;
-			}
-		}
-		throw new ExpiredIdentifierException();
+		boolean check = game.getPlayers().stream().anyMatch(item -> item.getPlayerId().equals(player.getPlayerId()));
+	    if (check) {
+	        return true;
+        }
+        throw new ExpiredIdentifierException();
 	}
 }

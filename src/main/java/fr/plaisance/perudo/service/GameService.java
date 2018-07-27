@@ -20,12 +20,15 @@ public class GameService {
 
     @Autowired
     private PlayerService playerService;
+
+    @Autowired
+    private Perudo perudo;
 	
 	public Game createGame() {
 		Long gameId = this.nextGameId();
 		Game game = new Game(gameId);
 		game.setPalifico(false);
-		Perudo.getInstance().addGame(game);
+		perudo.addGame(game);
 		return game;
 	}
 
@@ -39,40 +42,29 @@ public class GameService {
 	}
 
 	public Boolean isStarted(Game game) {
-		if(this.canStart(game) == false){
+		if(!this.canStart(game)){
 			return false;
 		}
-		else{
-			for (Player player : game.getPlayers()) {
-				if(player.isActive()){
-					return true;
-				}
-			}
-		}
-		return false;
+        return game.getPlayers()
+            .stream()
+            .anyMatch(Player::isActive);
 	}
 
 	public Boolean isOver(Game game) {
 		if(!this.canStart(game)){
 			return false;
 		}
-		else{
-			int totalPlayers = game.getPlayers().size();
-			int lostPlayers = 0;
-			for (Player player : game.getPlayers()) {
-				if(playerService.hasLost(player)){
-					lostPlayers ++;
-				}
-			}
-			return lostPlayers + 1 >= totalPlayers;
-		}
+        int totalPlayers = game.getPlayers().size();
+        int lostPlayers = (int) game.getPlayers()
+            .stream()
+            .filter(playerService::hasLost)
+            .count();
+        return lostPlayers  > totalPlayers;
 	}
 	
 	public void rollDice(Game game) {
 		if(this.canStart(game)){
-			for (Player player : game.getPlayers()) {
-				playerService.rollDice(player);
-			}	
+            game.getPlayers().forEach(playerService::rollDice);
 		}
 	}
 	
@@ -85,26 +77,17 @@ public class GameService {
 	}
 
 	private boolean alreadyExists(Long id){
-		if(CollectionUtils.isEmpty(Perudo.getInstance().getGames())){
-			return false;
-		}
-		else{
-			for (Game game : Perudo.getInstance().getGames()) {
-				if(game.getGameId().equals(id)){
-					return true;
-				}
-			}
-		}
-		return false;
+		return perudo.getGames()
+            .stream()
+            .anyMatch(game -> game.getGameId().equals(id));
 	}
 
 	public Player activePlayer(Game game) {
-		for (Player player : game.getPlayers()) {
-			if(player.isActive()){
-				return player;
-			}
-		}
-		return null;
+		return game.getPlayers()
+            .stream()
+            .filter(Player::isActive)
+            .findFirst()
+            .orElse(null);
 	}
 	
 	public Player previousPlayer(Game game) {
@@ -113,14 +96,14 @@ public class GameService {
 			List<Player> players = game.getPlayers();
 			int index = players.indexOf(active);
 			if(index > 0){
-				for(int n = index - 1 ; n >= 0 ; n --){
+				for (int n = index - 1 ; n >= 0 ; n --){
 					if(!playerService.hasLost(players.get(n))){
 						return players.get(n);
 					}
 				}
 			}
 			if(index < players.size() - 1){
-				for(int n = players.size() - 1 ; n > index ; n --){
+				for (int n = players.size() - 1 ; n > index ; n --){
 					if(!playerService.hasLost(players.get(n))){
 						return players.get(n);
 					}
@@ -173,15 +156,11 @@ public class GameService {
 	}
 
 	public void clearDeclarations(Game game) {
-		for (Player player : game.getPlayers()) {
-			player.setDeclaration(null);
-		}
+        game.getPlayers().forEach(player -> player.setDeclaration(null));
 	}
-	
+
 	public void clearActions(Game game) {
-		for (Player player : game.getPlayers()) {
-			player.setAction(null);
-		}
+        game.getPlayers().forEach(player -> player.setAction(null));
 	}
 
 	public void startGame(Game game) throws NotEnoughPlayersException, GameAlreadyStartedException {
@@ -200,46 +179,38 @@ public class GameService {
 	}
 
 	public Game lastGame() {
-		if(CollectionUtils.isNotEmpty(Perudo.getInstance().getGames())){
-			for (Game game : Perudo.getInstance().getGames()) {
-				if(!isStarted(game) && game.getPlayers().size() < PerudoUtil.MAX_PLAYER){
-					return game;
-				}
-			}
-		}
-		return createGame();
+        return perudo.getGames()
+            .stream()
+            .filter(game -> !isStarted(game) && game.getPlayers().size() < PerudoUtil.MAX_PLAYER)
+            .findFirst()
+            .orElseGet(this::createGame);
 	}
 
 	public Game getById(Long gameId) throws ExpiredIdentifierException {
-		if(CollectionUtils.isEmpty(Perudo.getInstance().getGames())){
-			throw new ExpiredIdentifierException();
-		}
-		for(Game game : Perudo.getInstance().getGames()){
-			if(game.getGameId().equals(gameId)){
-				return game;
-			}
-		}
-		throw new ExpiredIdentifierException();
+		return perudo.getGames().stream()
+            .filter(game -> game.getGameId().equals(gameId))
+            .findFirst()
+            .orElseThrow(ExpiredIdentifierException::new);
 	}
 
 	public Player winner(Game game) {
 		if(isOver(game)){
-			for (Player player : game.getPlayers()) {
-				if(!playerService.hasLost(player)){
-					return player;
-				}
-			}
+            game.getPlayers()
+                .stream()
+                .filter(player -> !playerService.hasLost(player))
+                .findFirst()
+                .orElse(null);
 		}
 		return null;
 	}
 
 	public PerudoAction lastAction(Game game) {
-		for (Player player : game.getPlayers()) {
-			if(player.getAction() != null){
-				return player.getAction();
-			}
-		}
-		return null;
+		return game.getPlayers()
+            .stream()
+            .map(Player::getAction)
+            .filter(action -> action != null)
+            .findFirst()
+            .orElse(null);
 	}
 
 	public boolean isPaused(Game game) {

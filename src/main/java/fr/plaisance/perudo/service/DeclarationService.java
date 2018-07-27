@@ -7,6 +7,8 @@ import fr.plaisance.perudo.domaine.Declaration;
 import fr.plaisance.perudo.domaine.Face;
 import fr.plaisance.perudo.exception.IllegalFaceValueException;
 
+import java.util.Arrays;
+
 @Service
 public class DeclarationService {
 
@@ -101,14 +103,5 @@ public class DeclarationService {
 		declaration.setFace(face);
 		declaration.setNumber(number);
 		return declaration;
-	}
-
-	public Declaration createDeclaration(Integer value, Integer number) throws IllegalFaceValueException {
-		for (Face face : Face.values()) {
-			if(face.getValue().equals(value)){
-				return createDeclaration(face, number);
-			}
-		}
-		throw new IllegalFaceValueException();
 	}
 }
