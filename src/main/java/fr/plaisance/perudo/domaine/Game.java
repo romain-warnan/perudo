@@ -16,7 +16,7 @@ public class Game {
 	
 	public Game(Long gameId){
 		this.gameId = gameId;
-        players = new ArrayList<Player>();
+        players = new ArrayList<>();
 	}
 
 	public Long getGameId() {
@@ -30,7 +30,7 @@ public class Game {
 	
 	public void addPlayer(Player player){
 		if(CollectionUtils.isEmpty(players)){
-			players = new ArrayList<Player>();
+			players = new ArrayList<>();
 		}
 		players.add(player);
 	}
@@ -49,7 +49,7 @@ public class Game {
 	
 	public void addMessage(PerudoMessageType type, String message){
 		if(CollectionUtils.isEmpty(messages)){
-			this.messages = new ArrayList<PerudoMessage>();
+			this.messages = new ArrayList<>();
 		}
 		this.messages.add(0, new PerudoMessage(type, message));
 	}
