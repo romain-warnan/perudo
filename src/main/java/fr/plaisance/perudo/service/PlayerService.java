@@ -9,6 +9,7 @@ import fr.plaisance.perudo.exception.*;
 
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class PlayerService {
@@ -27,9 +28,9 @@ public class PlayerService {
 	public Player createPlayer(String playerName, Game game) throws TooManyPlayersException {
 
 		if(CollectionUtils.isEmpty(game.getPlayers()) || game.getPlayers().size() < PerudoUtil.MAX_PLAYER){
-			Long playerId = this.nextPlayerId();
+			UUID playerId = this.nextId();
 			Player player = new Player(playerId);
-			player.setPlayerName(playerName);
+			player.setName(playerName);
 			player.setActive(false);
 			player.setAction(null);
 			player.setColor(this.nextColor());
@@ -76,12 +77,8 @@ public class PlayerService {
 		}
 	}
 	
-	private Long nextPlayerId(){
-		Long id = null;
-		while(id == null || this.alreadyExists(id)){
-			id = Math.abs(random.nextLong());
-		}
-		return id;
+	private UUID nextId(){
+		return UUID.randomUUID();
 	}
 	
 	private PerudoColor nextColor(){
@@ -91,13 +88,6 @@ public class PlayerService {
 			color = PerudoColor.values()[n - 1];
 		}
 		return color;
-	}
-
-	private boolean alreadyExists(Long id){
-		return perudo.getGames()
-            .stream()
-            .flatMap(game -> game.getPlayers().stream())
-            .anyMatch(player -> player.getPlayerId().equals(id));
 	}
 	
 	private boolean alreadyUsed(PerudoColor color){
@@ -212,16 +202,16 @@ public class PlayerService {
 		}
 	}
 
-	public Player getById(Long playerId) throws ExpiredIdentifierException {
+	public Player getById(UUID playerId) throws ExpiredIdentifierException {
 		return perudo.getGames().stream()
             .flatMap(game -> game.getPlayers().stream())
-            .filter(player -> player.getPlayerId().equals(playerId))
+            .filter(player -> player.getId().equals(playerId))
             .findFirst()
             .orElseThrow(ExpiredIdentifierException::new);
 	}
 
 	public boolean check(Player player, Game game) throws PerudoException {
-		boolean check = game.getPlayers().stream().anyMatch(item -> item.getPlayerId().equals(player.getPlayerId()));
+		boolean check = game.getPlayers().stream().anyMatch(item -> item.getId().equals(player.getId()));
 	    if (check) {
 	        return true;
         }

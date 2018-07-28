@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class GameConverter implements Converter<String, Game> {
 
@@ -15,6 +17,6 @@ public class GameConverter implements Converter<String, Game> {
 
     @Override
     public Game convert(String gameId) {
-        return gameService.getById(Long.valueOf(gameId));
+        return gameService.getById(UUID.fromString(gameId));
     }
 }

@@ -5,22 +5,23 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Game {
 
-	private Long gameId;
+	private UUID id;
 	private List<Player> players;
 	private Boolean palifico;
 	private List<PerudoMessage> messages;
 	private PerudoResult result;
 	
-	public Game(Long gameId){
-		this.gameId = gameId;
+	public Game(UUID id){
+		this.id = id;
         players = new ArrayList<>();
 	}
 
-	public Long getGameId() {
-		return gameId;
+	public UUID getId() {
+		return id;
 	}
 
 	public List<Player> getPlayers() {
@@ -68,7 +69,7 @@ public class Game {
 
 	@Override
     public int hashCode() {
-        return Objects.hash(this.gameId);
+        return Objects.hash(this.id);
     }
 	
     @Override
@@ -78,13 +79,13 @@ public class Game {
         }
         if (object instanceof Game) {
         	Game other = (Game)object;
-            return Objects.equals(this.gameId, other.gameId);
+            return Objects.equals(this.id, other.id);
         }
         return false;
     }
     
     @Override
     public String toString(){
-    	return "Game : " + Objects.toString(this.gameId);
+    	return "Game : " + Objects.toString(this.id);
     }
 }

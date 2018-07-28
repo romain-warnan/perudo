@@ -9,9 +9,7 @@ import fr.plaisance.perudo.exception.ExpiredIdentifierException;
 import fr.plaisance.perudo.exception.GameAlreadyStartedException;
 import fr.plaisance.perudo.exception.NotEnoughPlayersException;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class GameService {
@@ -25,7 +23,7 @@ public class GameService {
     private Perudo perudo;
 	
 	public Game createGame() {
-		Long gameId = this.nextGameId();
+		UUID gameId = this.nextId();
 		Game game = new Game(gameId);
 		game.setPalifico(false);
 		perudo.addGame(game);
@@ -68,19 +66,9 @@ public class GameService {
 		}
 	}
 	
-	private Long nextGameId(){
-		Long id = null;
-		while(id == null || this.alreadyExists(id)){
-			id = Math.abs(random.nextLong());
-		}
-		return id;
-	}
-
-	private boolean alreadyExists(Long id){
-		return perudo.getGames()
-            .stream()
-            .anyMatch(game -> game.getGameId().equals(id));
-	}
+	private UUID nextId() {
+        return UUID.randomUUID();
+    }
 
 	public Player activePlayer(Game game) {
 		return game.getPlayers()
@@ -178,9 +166,9 @@ public class GameService {
             .orElseGet(this::createGame);
 	}
 
-	public Game getById(Long gameId) throws ExpiredIdentifierException {
+	public Game getById(UUID gameId) throws ExpiredIdentifierException {
 		return perudo.getGames().stream()
-            .filter(game -> game.getGameId().equals(gameId))
+            .filter(game -> game.getId().equals(gameId))
             .findFirst()
             .orElseThrow(ExpiredIdentifierException::new);
 	}
@@ -200,7 +188,7 @@ public class GameService {
 		return game.getPlayers()
             .stream()
             .map(Player::getAction)
-            .filter(action -> action != null)
+            .filter(Objects::nonNull)
             .findFirst()
             .orElse(null);
 	}

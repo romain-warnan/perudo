@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
-import java.net.URL;
 import java.util.Collections;
 
 import static org.junit.Assert.*;
@@ -52,7 +50,7 @@ public class PerudoServerApplicationTests {
 
         Game game1 = gameService.createGame();
         assertEquals(1, perudo.getGames().size());
-        assertEquals(Long.valueOf(1L), game1.getGameId());
+        assertEquals(Long.valueOf(1L), game1.getId());
 
         playerService.createPlayer("Player 1", game1);
         playerService.createPlayer("Player 2", game1);
@@ -60,7 +58,7 @@ public class PerudoServerApplicationTests {
         playerService.createPlayer("Player 4", game1);
         playerService.createPlayer("Player 5", game1);
         Player player1 = playerService.createPlayer("Player 6", game1);
-        assertEquals(Long.valueOf(6L), player1.getPlayerId());
+        assertEquals(Long.valueOf(6L), player1.getId());
         assertEquals(5, player1.getFaces().size());
 
         try {
@@ -72,10 +70,10 @@ public class PerudoServerApplicationTests {
 
         Game game2 = gameService.createGame();
         assertEquals(2, perudo.getGames().size());
-        assertEquals(Long.valueOf(2L), game2.getGameId());
+        assertEquals(Long.valueOf(2L), game2.getId());
 
         Player player2 = playerService.createPlayer("Player 7", game2);
-        assertEquals(Long.valueOf(7L), player2.getPlayerId());
+        assertEquals(Long.valueOf(7L), player2.getId());
         assertFalse(gameService.canStart(game2));
 
         playerService.createPlayer("Player 8", game2);

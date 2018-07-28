@@ -2,7 +2,6 @@ package fr.plaisance.perudo.rest;
 
 import fr.plaisance.perudo.PerudoUtil;
 import fr.plaisance.perudo.domaine.*;
-import fr.plaisance.perudo.exception.PerudoException;
 import fr.plaisance.perudo.service.DeclarationService;
 import fr.plaisance.perudo.service.GameService;
 import fr.plaisance.perudo.service.PlayerService;
@@ -47,11 +46,11 @@ public class PerudoController {
         switch (result.getType()) {
             case WIN:
                 playerService.winDie(game, result.getPlayer());
-                game.addMessage(PerudoMessageType.INFO, player.getPlayerName() + " a gagné un dé.");
+                game.addMessage(PerudoMessageType.INFO, player.getName() + " a gagné un dé.");
                 break;
             case LOSE:
                 playerService.loseDie(game, result.getPlayer());
-                game.addMessage(PerudoMessageType.INFO, player.getPlayerName() + " a perdu un dé.");
+                game.addMessage(PerudoMessageType.INFO, player.getName() + " a perdu un dé.");
                 break;
         }
         gameService.rollDice(game);
@@ -73,7 +72,7 @@ public class PerudoController {
         Player winner = gameService.winner(game);
         game.addMessage(PerudoMessageType.INFO, "La partie est terminée.");
         int dices = winner.getFaces().size();
-        String playerName = winner.getPlayerName();
+        String playerName = winner.getName();
         if(dices == PerudoUtil.MAX_DICE){
             game.addMessage(PerudoMessageType.INFO, playerName + " a gagné avec tous ses dés ! Good game Sir.");
         }
@@ -90,7 +89,7 @@ public class PerudoController {
 	public Game bet(@RequestParam("game") Game game, @RequestParam("player") Player player, @RequestParam("number") Integer number, @RequestParam("face") Face face) {
         Declaration declaration = declarationService.createDeclaration(face, number);
         playerService.bet(player, game, declaration);
-        game.addMessage(PerudoMessageType.INFO, player.getPlayerName() + " a enchéri : " + number + "x" + face + ".");
+        game.addMessage(PerudoMessageType.INFO, player.getName() + " a enchéri : " + number + "x" + face + ".");
 		return game;
 	}
 
@@ -98,10 +97,10 @@ public class PerudoController {
 	public Game dudo(@RequestParam("game") Game game, @RequestParam("player") Player player) {
         playerService.dudo(player, game);
         if(gameService.isOver(game)){
-            game.addMessage(PerudoMessageType.INFO, player.getPlayerName() + " a gagné la partie.");
+            game.addMessage(PerudoMessageType.INFO, player.getName() + " a gagné la partie.");
         }
         else{
-            game.addMessage(PerudoMessageType.INFO, player.getPlayerName() + " a dit Dudo.");
+            game.addMessage(PerudoMessageType.INFO, player.getName() + " a dit Dudo.");
         }
         return game;
 	}
@@ -110,10 +109,10 @@ public class PerudoController {
 	public Game calza(@RequestParam("game") Game game, @RequestParam("player") Player player) {
         playerService.calza(player, game);
         if(gameService.isOver(game)){
-            game.addMessage(PerudoMessageType.INFO, player.getPlayerName() + " a gagné la partie.");
+            game.addMessage(PerudoMessageType.INFO, player.getName() + " a gagné la partie.");
         }
         else{
-            game.addMessage(PerudoMessageType.INFO, player.getPlayerName() + " a dit Calza.");
+            game.addMessage(PerudoMessageType.INFO, player.getName() + " a dit Calza.");
         }
         return game;
 	}
