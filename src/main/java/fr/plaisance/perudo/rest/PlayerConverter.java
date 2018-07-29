@@ -1,7 +1,9 @@
 package fr.plaisance.perudo.rest;
 
 import fr.plaisance.perudo.domaine.Game;
+import fr.plaisance.perudo.domaine.Player;
 import fr.plaisance.perudo.service.GameService;
+import fr.plaisance.perudo.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -9,13 +11,13 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class PlayerConverter implements Converter<String, Game> {
+public class PlayerConverter implements Converter<String, Player> {
 
     @Autowired
-    private GameService gameService;
+    private PlayerService playerService;
 
     @Override
-    public Game convert(String playerId) {
-        return gameService.getById(UUID.fromString(playerId));
+    public Player convert(String playerId) {
+        return playerService.getById(UUID.fromString(playerId));
     }
 }
