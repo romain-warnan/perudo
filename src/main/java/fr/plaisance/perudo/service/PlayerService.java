@@ -28,7 +28,7 @@ public class PlayerService {
 	public Player createPlayer(String playerName, Game game) throws TooManyPlayersException {
 
 		if(CollectionUtils.isEmpty(game.getPlayers()) || game.getPlayers().size() < PerudoUtil.MAX_PLAYER){
-			UUID playerId = this.nextId();
+			UUID playerId = UUID.randomUUID();
 			Player player = new Player(playerId);
 			player.setName(playerName);
 			player.setActive(false);
@@ -76,11 +76,7 @@ public class PlayerService {
 			player.addFace(face);
 		}
 	}
-	
-	private UUID nextId(){
-		return UUID.randomUUID();
-	}
-	
+
 	private PerudoColor nextColor(){
 		PerudoColor color = null;
 		while(color == null || this.alreadyUsed(color)){

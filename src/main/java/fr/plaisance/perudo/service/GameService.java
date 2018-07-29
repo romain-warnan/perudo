@@ -23,7 +23,7 @@ public class GameService {
     private Perudo perudo;
 	
 	public Game createGame() {
-		UUID gameId = this.nextId();
+		UUID gameId = UUID.randomUUID();
 		Game game = new Game(gameId);
 		game.setPalifico(false);
 		perudo.addGame(game);
@@ -65,10 +65,6 @@ public class GameService {
             game.getPlayers().forEach(playerService::rollDice);
 		}
 	}
-	
-	private UUID nextId() {
-        return UUID.randomUUID();
-    }
 
 	public Player activePlayer(Game game) {
 		return game.getPlayers()
