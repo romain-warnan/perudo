@@ -22,7 +22,17 @@ public class Player {
 		this.id = id;
 	}
 
-	public UUID getId() {
+    public Player(Player that) {
+	    this.id = that.id;
+	    this.name = that.name;
+	    this.action = that.action;
+	    this.faces = (that.faces == null ? null : new ArrayList<>(that.faces));
+	    this.active = that.active;
+	    this.declaration = (that.declaration == null ? null : new Declaration(that.declaration));
+	    this.color = that.color;
+    }
+
+    public UUID getId() {
 		return id;
 	}
 
@@ -77,7 +87,11 @@ public class Player {
 		this.color = color;
 	}
 
-	@Override
+    public void setFaces(Collection<Face> faces) {
+        this.faces = faces;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(this.id);
     }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Game {
 
@@ -19,6 +20,14 @@ public class Game {
 		this.id = id;
         players = new ArrayList<>();
 	}
+
+	public Game(Game that) {
+	    this.id = that.id;
+	    this.players = (that.players == null ? null : that.players.stream().map(Player::new).collect(Collectors.toList()));
+	    this.palifico = that.palifico;
+	    this.messages = that.messages.stream().map(PerudoMessage::new).collect(Collectors.toList());
+	    this.result = (that.result == null ? null :  new PerudoResult(that.result));
+    }
 
 	public UUID getId() {
 		return id;

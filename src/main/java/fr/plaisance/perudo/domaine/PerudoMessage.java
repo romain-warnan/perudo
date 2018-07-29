@@ -10,6 +10,11 @@ public class PerudoMessage {
 		this.type = type;
 		this.message = message;
 	}
+
+	public PerudoMessage(PerudoMessage that) {
+	    this.type = that.type;
+	    this.message = that.message;
+    }
 	
 	public String getMessage(){
 		return message;
