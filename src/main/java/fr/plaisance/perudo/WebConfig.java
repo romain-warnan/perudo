@@ -1,5 +1,6 @@
 package fr.plaisance.perudo;
 
+import fr.plaisance.perudo.rest.FaceConverter;
 import fr.plaisance.perudo.rest.GameConverter;
 import fr.plaisance.perudo.rest.PlayerConverter;
 import fr.plaisance.perudo.service.PlayerService;
@@ -17,9 +18,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private PlayerConverter playerConverter;
 
+    @Autowired
+    private FaceConverter faceConverter;
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(gameConverter);
         registry.addConverter(playerConverter);
+        registry.addConverter(faceConverter);
     }
 }
