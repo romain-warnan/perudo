@@ -33,10 +33,10 @@ public enum Face {
 		this.value = number;
 	}
 
-	public static Face of(Integer value) {
+	public static Face of(String value) {
 	    return Arrays.stream(Face.values())
             .filter(f -> f.getValue().equals(value))
             .findFirst()
-            .orElseThrow(IllegalFaceValueException::new);
+            .orElseThrow(() -> new IllegalFaceValueException(value));
     }
 }

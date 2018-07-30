@@ -12,6 +12,6 @@ public class FaceConverter implements Converter<String, Face> {
 
     @Override
     public Face convert(String string) {
-        return Face.of(Integer.valueOf(string));
+        return Face.of(string);
     }
 }

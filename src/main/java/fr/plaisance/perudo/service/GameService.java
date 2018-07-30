@@ -142,7 +142,7 @@ public class GameService {
 	public void startGame(Game game) throws NotEnoughPlayersException, GameAlreadyStartedException {
 		if(this.canStart(game)){
 			if(this.isStarted(game)){
-				throw new GameAlreadyStartedException();
+				throw new GameAlreadyStartedException(game);
 			}
 			else{
 				Collections.shuffle(game.getPlayers());

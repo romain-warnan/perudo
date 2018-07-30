@@ -54,7 +54,7 @@ public class PlayerService {
 		player.getFaces().clear();
 		for(int n = 0 ; n < nbFaces ; n ++){
 			int number = PerudoUtil.random(1, 6);
-            player.getFaces().add(Face.of(number));
+            player.getFaces().add(Face.of(String.valueOf(number)));
 		}
 	}
 	
@@ -110,15 +110,15 @@ public class PlayerService {
 					player.setActive(false);
 				}
 				else{
-					throw new InvalidDeclarationException();
+					throw new InvalidDeclarationException(declaration);
 				}
 			}
 			else{
-				throw new WrongPlayerException();
+				throw new WrongPlayerException(player);
 			}
 		}
 		else{
-			throw new GameNotStartedException();
+			throw new GameNotStartedException(game);
 		}
 	}
 
@@ -128,13 +128,13 @@ public class PlayerService {
 				player.setAction(PerudoAction.DUDO);
 				Player previousPlayer = gameService.previousPlayer(game);
 				if(previousPlayer == null){
-					throw new RookieMistakeException();
+					throw new RookieMistakeException(player);
 				}
 				else{
 					previousPlayer.setAction(null);
 					Declaration declaration = previousPlayer.getDeclaration();
 					if(declaration == null){
-						throw new RookieMistakeException();
+						throw new RookieMistakeException(player);
 					}
 					else{
 						Face face = declaration.getFace();
@@ -156,11 +156,11 @@ public class PlayerService {
 				}
 			}
 			else{
-				throw new WrongPlayerException();
+				throw new WrongPlayerException(player);
 			}
 		}
 		else{
-			throw new GameNotStartedException();
+			throw new GameNotStartedException(game);
 		}
 	}
 
@@ -169,13 +169,13 @@ public class PlayerService {
 			player.setAction(PerudoAction.CALZA);
 			Player previousPlayer = gameService.previousPlayer(game);
 			if(previousPlayer == null){
-				throw new RookieMistakeException();
+				throw new RookieMistakeException(player);
 			}
 			else{
 				previousPlayer.setAction(null);
 				Declaration declaration = previousPlayer.getDeclaration();
 				if(declaration == null){
-					throw new RookieMistakeException();
+					throw new RookieMistakeException(player);
 				}
 				else{
 					Face face = declaration.getFace();
@@ -194,7 +194,7 @@ public class PlayerService {
 			}
 		}
 		else{
-			throw new GameNotStartedException();
+			throw new GameNotStartedException(game);
 		}
 	}
 
