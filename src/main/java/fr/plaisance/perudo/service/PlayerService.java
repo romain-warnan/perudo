@@ -54,7 +54,7 @@ public class PlayerService {
 		player.getFaces().clear();
 		for(int n = 0 ; n < nbFaces ; n ++){
 			int number = PerudoUtil.random(1, 6);
-            player.getFaces().add(Face.of(String.valueOf(number)));
+            player.getFaces().add(Face.of(number));
 		}
 	}
 	

@@ -7,7 +7,7 @@ public class IllegalFaceValueException extends PerudoException {
 	
 	private static final String message = PerudoUtil.message("exception.illegal.face.value");
 	
-	public IllegalFaceValueException(String faceValue){
+	public IllegalFaceValueException(Integer faceValue){
 		super(String.format(message, faceValue));
 	}
 }

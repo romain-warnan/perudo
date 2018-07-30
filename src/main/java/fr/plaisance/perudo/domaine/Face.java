@@ -33,9 +33,9 @@ public enum Face {
 		this.value = number;
 	}
 
-	public static Face of(String value) {
+	public static Face of(Integer value) {
 	    return Arrays.stream(Face.values())
-            .filter(f -> f.getValue().equals(value))
+            .filter(face -> face.getValue().equals(value))
             .findFirst()
             .orElseThrow(() -> new IllegalFaceValueException(value));
     }

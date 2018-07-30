@@ -1,6 +1,6 @@
 package fr.plaisance.perudo.rest;
 
-import fr.plaisance.perudo.exception.ErrorDetail;
+import fr.plaisance.perudo.exception.ErrorDetails;
 import fr.plaisance.perudo.exception.PerudoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class PerudoExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(PerudoException.class)
-    public ResponseEntity<ErrorDetail> perudoException(PerudoException e) {
+    public ResponseEntity<ErrorDetails> perudoException(PerudoException e) {
         return ResponseEntity
             .badRequest()
-            .body(ErrorDetail.of(e.getMessage(), HttpStatus.BAD_REQUEST));
+            .body(ErrorDetails.of(e.getMessage(), HttpStatus.BAD_REQUEST));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDetail> unexpectedException(Exception e) {
+    public ResponseEntity<ErrorDetails> unexpectedException(Exception e) {
         return ResponseEntity
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(ErrorDetail.of(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
+            .body(ErrorDetails.of(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
     }
 }
