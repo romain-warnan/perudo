@@ -1,9 +1,8 @@
 package fr.plaisance.perudo;
 
-import fr.plaisance.perudo.rest.FaceConverter;
-import fr.plaisance.perudo.rest.GameConverter;
-import fr.plaisance.perudo.rest.PlayerConverter;
-import fr.plaisance.perudo.service.PlayerService;
+import fr.plaisance.perudo.rest.converter.FaceConverter;
+import fr.plaisance.perudo.rest.converter.GameConverter;
+import fr.plaisance.perudo.rest.converter.PlayerConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
