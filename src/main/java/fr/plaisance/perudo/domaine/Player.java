@@ -5,32 +5,43 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Player {
 
-	private Long playerId;
-	private String playerName;
+	private UUID id;
+	private String name;
 	private PerudoAction action;
 	private Collection<Face> faces;
 	private Boolean active;
 	private Declaration declaration;
 	private PerudoColor color;
 	
-	public Player(Long playerId) {
+	public Player(UUID id) {
 		super();
-		this.playerId = playerId;
+		this.id = id;
 	}
 
-	public Long getPlayerId() {
-		return playerId;
+    public Player(Player that) {
+	    this.id = that.id;
+	    this.name = that.name;
+	    this.action = that.action;
+	    this.faces = (that.faces == null ? null : new ArrayList<>(that.faces));
+	    this.active = that.active;
+	    this.declaration = (that.declaration == null ? null : new Declaration(that.declaration));
+	    this.color = that.color;
+    }
+
+    public UUID getId() {
+		return id;
 	}
 
-	public String getPlayerName() {
-		return playerName;
+	public String getName() {
+		return name;
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Collection<Face> getFaces() {
@@ -39,7 +50,7 @@ public class Player {
 	
 	public void addFace(Face face){
 		if(CollectionUtils.isEmpty(faces)){
-			faces = new ArrayList<Face>();
+			faces = new ArrayList<>();
 		}
 		faces.add(face);
 	}
@@ -76,9 +87,13 @@ public class Player {
 		this.color = color;
 	}
 
-	@Override
+    public void setFaces(Collection<Face> faces) {
+        this.faces = faces;
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(this.playerId);
+        return Objects.hash(this.id);
     }
 	
     @Override
@@ -88,13 +103,13 @@ public class Player {
         }
         if (object instanceof Player) {
         	Player other = (Player)object;
-            return Objects.equals(this.playerId, other.playerId);
+            return Objects.equals(this.id, other.id);
         }
         return false;
     }
     
     @Override
     public String toString(){
-    	return "Player : " + Objects.toString(this.playerId) + " " + faces;
+    	return "Player : " + Objects.toString(this.id) + " " + faces;
     }
 }

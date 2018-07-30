@@ -10,6 +10,11 @@ public class PerudoResult {
 		this.type = type;
 		this.player = player;
 	}
+
+	public PerudoResult(PerudoResult that) {
+		this.type = that.type;
+		this.player = new Player(that.player);
+	}
 	
 	public Player getPlayer(){
 		return player;

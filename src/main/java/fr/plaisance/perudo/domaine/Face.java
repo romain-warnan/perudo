@@ -26,7 +26,7 @@ public enum Face {
 	
 	@Override
 	public String toString(){
-		return "Face : " + Objects.toString(value);
+		return String.valueOf(value);
 	}
 
 	public void setValue(Integer number) {

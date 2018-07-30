@@ -9,13 +9,13 @@ public enum PerudoColor {
 	PURPLE	("p"),
 	ORANGE	("o");
 	
-	private String colorId;
+	private String id;
 	
-	private PerudoColor(String colorId){
-		this.colorId = colorId;
+	private PerudoColor(String id){
+		this.id = id;
 	}
 	
-	public String getColorId(){
-		return colorId;
+	public String getId(){
+		return id;
 	}
 }

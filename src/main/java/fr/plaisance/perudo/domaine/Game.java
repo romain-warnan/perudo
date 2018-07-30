@@ -5,22 +5,32 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Game {
 
-	private Long gameId;
+	private UUID id;
 	private List<Player> players;
 	private Boolean palifico;
 	private List<PerudoMessage> messages;
 	private PerudoResult result;
 	
-	public Game(Long gameId){
-		this.gameId = gameId;
-        players = new ArrayList<Player>();
+	public Game(UUID id){
+		this.id = id;
+        players = new ArrayList<>();
 	}
 
-	public Long getGameId() {
-		return gameId;
+	public Game(Game that) {
+	    this.id = that.id;
+	    this.players = (that.players == null ? null : that.players.stream().map(Player::new).collect(Collectors.toList()));
+	    this.palifico = that.palifico;
+	    this.messages = that.messages.stream().map(PerudoMessage::new).collect(Collectors.toList());
+	    this.result = (that.result == null ? null :  new PerudoResult(that.result));
+    }
+
+	public UUID getId() {
+		return id;
 	}
 
 	public List<Player> getPlayers() {
@@ -30,7 +40,7 @@ public class Game {
 	
 	public void addPlayer(Player player){
 		if(CollectionUtils.isEmpty(players)){
-			players = new ArrayList<Player>();
+			players = new ArrayList<>();
 		}
 		players.add(player);
 	}
@@ -49,7 +59,7 @@ public class Game {
 	
 	public void addMessage(PerudoMessageType type, String message){
 		if(CollectionUtils.isEmpty(messages)){
-			this.messages = new ArrayList<PerudoMessage>();
+			this.messages = new ArrayList<>();
 		}
 		this.messages.add(0, new PerudoMessage(type, message));
 	}
@@ -68,7 +78,7 @@ public class Game {
 
 	@Override
     public int hashCode() {
-        return Objects.hash(this.gameId);
+        return Objects.hash(this.id);
     }
 	
     @Override
@@ -78,13 +88,13 @@ public class Game {
         }
         if (object instanceof Game) {
         	Game other = (Game)object;
-            return Objects.equals(this.gameId, other.gameId);
+            return Objects.equals(this.id, other.id);
         }
         return false;
     }
     
     @Override
     public String toString(){
-    	return "Game : " + Objects.toString(this.gameId);
+    	return "Game : " + Objects.toString(this.id);
     }
 }

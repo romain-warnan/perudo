@@ -10,6 +10,11 @@ public class Declaration {
 	public Declaration(){
 		// Default constructor
 	}
+
+	public Declaration(Declaration that){
+		this.number = that.number;
+		this.face = that.face;
+	}
 	
 	public Integer getNumber() {
 		return number;
