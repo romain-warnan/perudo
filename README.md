@@ -6,7 +6,7 @@
 git clone https://github.com/romain-warnan/perudo.git
 cd perudo
 mvn clean install
-java -jar target/perudo-server-0.0.1-SNAPSHOT.jar --server.port=80
+java -jar target/perudo-0.0.1-SNAPSHOT.jar --server.port=80
 ```
 
 Check [here](http://localhost)
@@ -21,15 +21,14 @@ git clone https://github.com/romain-warnan/perudo.git
 
 ```bash
 cd perudo
-mvn clean install
 mvn spring-boot:run
 ```
 
 ### Frontend
 ```bash
 cd perudo/frontend
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 Check [here](http://localhost:3001)
