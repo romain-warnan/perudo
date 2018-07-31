@@ -10,6 +10,7 @@ import fr.plaisance.perudo.service.GameService;
 import fr.plaisance.perudo.service.PlayerService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class PerudoServerApplicationTests {
     }
 
     @Test
+    @Ignore
     public void testPerudo() throws PerudoException {
 
         Game game1 = gameService.createGame();
