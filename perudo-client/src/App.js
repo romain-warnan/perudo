@@ -14,8 +14,8 @@ class App extends Component {
         fetch('/api/player?name=Romain')
             .then(response => response.json())
             .then(game => console.log(game))
-            .then(message => {
-                this.setState({message: message})
+            .then(game => {
+                this.setState({game})
             })
     }
 
