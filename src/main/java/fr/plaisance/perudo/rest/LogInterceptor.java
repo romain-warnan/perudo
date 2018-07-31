@@ -15,7 +15,14 @@ public class LogInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info(request.getRequestURL().append('?').append(request.getQueryString()).toString());
+        String queryString = request.getQueryString();
+        StringBuffer requestURL = request.getRequestURL();
+        if(queryString == null) {
+            logger.info(requestURL.append('?').append(queryString).toString());
+        }
+        else {
+            logger.info(requestURL.toString());
+        }
         return true;
     }
 }
