@@ -18,10 +18,10 @@ public class LogInterceptor implements HandlerInterceptor {
         String queryString = request.getQueryString();
         StringBuffer requestURL = request.getRequestURL();
         if(queryString == null) {
-            logger.info(requestURL.append('?').append(queryString).toString());
+            logger.info(requestURL.toString());
         }
         else {
-            logger.info(requestURL.toString());
+            logger.info(requestURL.append('?').append(queryString).toString());
         }
         return true;
     }
