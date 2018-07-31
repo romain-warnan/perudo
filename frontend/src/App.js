@@ -17,7 +17,7 @@ class App extends Component {
             .then(game => {
                 this.setState({game})
             })
-    }
+          }
 
   render() {
     return (
