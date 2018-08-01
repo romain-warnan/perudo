@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Face from './Face.jsx';
 
 class App extends Component {
   state = {}
 
   componentDidMount() {
-    this.hello()
+    // this.hello()
   }
-
+/*
   hello = () => {
     fetch('/api/player?name=Romain')
     .then(response => response.json())
@@ -17,7 +18,7 @@ class App extends Component {
       this.setState({game})
     })
   }
-
+*/
   render() {
     return (
       <div className="App">
@@ -28,6 +29,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Face value="1" color="RED" />
+        <Face value="2" color="PURPLE" />
       </div>
     );
   }
