@@ -3,21 +3,20 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  state = {}
 
-    state = {}
+  componentDidMount() {
+    this.hello()
+  }
 
-    componentDidMount() {
-        this.hello()
-    }
-
-    hello = () => {
-        fetch('/api/player?name=Romain')
-            .then(response => response.json())
-            .then(game => console.log(game))
-            .then(game => {
-                this.setState({game})
-            })
-          }
+  hello = () => {
+    fetch('/api/player?name=Romain')
+    .then(response => response.json())
+    .then(game => console.log(game))
+    .then(game => {
+      this.setState({game})
+    })
+  }
 
   render() {
     return (
