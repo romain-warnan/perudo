@@ -32,3 +32,15 @@ yarn start
 ```
 
 Check [here](http://localhost:3001)
+
+## Storybook
+
+### Build
+
+```bash
+yarn run build-storybook
+```
+
+### Browse
+
+[http://romain-warnan.github.io/perudo](Storybook)
