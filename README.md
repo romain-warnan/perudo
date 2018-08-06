@@ -43,4 +43,4 @@ yarn run build-storybook
 
 ### Browse
 
-[http://romain-warnan.github.io/perudo](Storybook)
+[Storybook](http://romain-warnan.github.io/perudo)
