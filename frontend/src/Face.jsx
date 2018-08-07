@@ -9,8 +9,9 @@ class Face extends React.Component {
   }
 
   render() {
-	const letter = this.props.shaded ? 's' : this.props.color.substring(0, 1).toLowerCase()
-    const imageName = this.props.value + letter
+    const {shaded, color, value} = this.props
+    const letter = shaded ? 's' : color.substring(0, 1).toLowerCase()
+    const imageName = value + letter
     const imagePath = require(`./img/faces/${imageName}.png`)
     return <img src={imagePath} />
   }
