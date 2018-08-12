@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Face from './Face.jsx';
-import Draw from './Draw.jsx';
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import './App.css'
+import Face from './Face'
+import Draw from './Draw'
+import AddPlayerField from './AddPlayerField'
 import { connect } from 'react-redux'
 
 class App extends Component {
@@ -31,7 +32,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <p><button>Test redux action</button></p>
+        <p><AddPlayerField /></p>
         <Face value={6} color="RED" shaded />
         <Face value={6} color="PURPLE" />
         <Face value={6} color="GREEN" />
