@@ -1,13 +1,13 @@
 import { ADD_PLAYER } from './actions'
 
 const initialState = {
-  game: {}
+  game: {},
 }
 
 const perudoReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
       case ADD_PLAYER:
+        // console.log(action)
         return state
       default:
         return state
