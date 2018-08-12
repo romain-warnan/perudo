@@ -7,13 +7,22 @@ class Draw extends React.Component {
     faces: PropTypes.arrayOf(PropTypes.number).isRequired,
     color: PropTypes.oneOf(['BLUE', 'YELLOW', 'ORANGE', 'PURPLE', 'GREEN', 'RED']).isRequired,
     requestedValue: PropTypes.number,
+    palifico: PropTypes.bool,
+  }
+
+  isShaded(value) {
+    const {requestedValue, palifico} = this.props
+    const palificoCase = requestedValue && requestedValue !== value
+    const regularCase = requestedValue && palificoCase && value !== 1
+    return (palifico && palificoCase) || (!palifico && regularCase)
   }
 
   render() {
+    const {faces, color} = this.props
     return (
-    <p>
+    <p className='draw'>
       {
-        this.props.faces.map((value, index) => <Face key={index} value={value} color={this.props.color} shaded={this.props.requestedValue && this.props.requestedValue !== value} />)
+        faces.map((value, index) => <Face key={index} value={value} color={color} shaded={this.isShaded(value)} />)
       }
     </p>
     )
