@@ -4,7 +4,7 @@ import Draw from './Draw.jsx'
 
 storiesOf('Draw/Colors and values', module)
   .add('Purple five', () => <Draw faces={[1, 2, 3, 4, 5]} color='PURPLE' value={1} />)
-  .add('Red five', () => <Draw faces={[2, 3, 4, 5, 6]} color='BLUE' value={1} />)
+  .add('Blue five', () => <Draw faces={[2, 3, 4, 5, 6]} color='BLUE' value={1} />)
   .add('Yellow four', () => <Draw faces={[1, 2, 3, 4]} color='YELLOW' value={1} />)
   .add('Green three', () => <Draw faces={[1, 2, 3]} color='GREEN' value={1} />)
   .add('Red two', () => <Draw faces={[1, 2]} color='RED' value={1} />)
