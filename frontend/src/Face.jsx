@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 class Face extends React.Component {
   static propTypes = {
@@ -18,8 +18,8 @@ class Face extends React.Component {
     const letter = (shaded || !color) ? 's' : color.substring(0, 1).toLowerCase()
     const imageName = value + letter
     const imagePath = require(`./img/faces/${imageName}.png`)
-    return <img src={imagePath} />
+    return <img src={imagePath} alt={imageName} />
   }
 }
 
-export default Face;
+export default Face

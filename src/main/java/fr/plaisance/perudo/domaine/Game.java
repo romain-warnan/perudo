@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Game {
 
-	private UUID id;
+	private final UUID id;
 	private List<Player> players;
 	private Boolean palifico;
 	private List<PerudoMessage> messages;
