@@ -1,3 +1,4 @@
+/*
 import { combineReducers } from 'redux'
 import { REQUEST_CREATE_PLAYER, RECEIVE_NEW_PLAYER } from './actions'
 
@@ -26,3 +27,4 @@ const rootReducer = combineReducers({
 })
   
 export default rootReducer
+*/

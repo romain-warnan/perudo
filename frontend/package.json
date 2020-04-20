@@ -1,47 +1,46 @@
 {
-  "name": "perudo-client",
+  "name": "perudo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "acorn": "5.7.4",
-    "js-yaml": "3.13.1",
-    "kind-of": "6.0.3",
-    "mem": "4.0.0",
-    "minimist": "0.2.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.2",
-    "react-redux": "^7.2.0",
-    "react-scripts": "1.1.4",
-    "redux": "^4.0.5",
-    "serialize-javascript": "2.1.1",
-    "set-value": "2.0.1",
-    "webpack-dev-server": "3.1.11"
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-extra-prop-types": "^0.3.1",
+    "react-scripts": "3.4.1",
+    "react-select": "^3.1.0"
   },
   "scripts": {
-    "start": "set PORT=3001 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public -c .storybook -o ../docs"
+    "build-storybook": "build-storybook -s public"
   },
-  "proxy": {
-    "/api": {
-      "target": "http://localhost:8080",
-      "ws": true
-    }
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^17.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.10.0",
-    "@storybook/react": "^3.4.10",
-    "@storybook/addon-actions": "^3.4.10",
-    "@storybook/addon-links": "^3.4.10",
-    "@storybook/addons": "^3.4.10",
-    "babel-core": "^6.26.3",
-    "babel-runtime": "^6.26.0"
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-links": "^5.3.18",
+    "@storybook/addons": "^5.3.18",
+    "@storybook/preset-create-react-app": "^2.1.1",
+    "@storybook/react": "^5.3.18"
   }
 }

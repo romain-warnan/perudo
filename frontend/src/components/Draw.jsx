@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Face from './Face.jsx';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Face from './Face.jsx'
+import colors from '../colors'
 
 class Draw extends React.Component {
   static propTypes = {
     faces: PropTypes.arrayOf(PropTypes.number).isRequired,
-    color: PropTypes.oneOf(['BLUE', 'YELLOW', 'ORANGE', 'PURPLE', 'GREEN', 'RED']).isRequired,
+    color: PropTypes.oneOf(colors).isRequired,
     requestedValue: PropTypes.number,
     palifico: PropTypes.bool,
   }
